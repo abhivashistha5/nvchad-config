@@ -6,7 +6,7 @@ local plugins = {
     opts = {
       ensure_installed = {
         "rust-analyzer",
-        "lua_ls",
+        "lua-language-server",
         "typescript-language-server",
         "json-lsp",
       },
