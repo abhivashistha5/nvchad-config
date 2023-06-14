@@ -23,6 +23,12 @@ lspconfig.tsserver.setup({
   capabilities = capabilities,
 })
 
+lspconfig.yamlls.setup({
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "yaml" }
+})
+
 -- lspconfig.luals.setup({
 --   on_attach = on_attach,
 --   capabilities = capabilities,

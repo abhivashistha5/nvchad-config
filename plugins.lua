@@ -9,6 +9,7 @@ local plugins = {
         "lua-language-server",
         "typescript-language-server",
         "json-lsp",
+        "yaml-language-server",
       },
     },
   },
