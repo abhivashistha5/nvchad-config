@@ -1,51 +1,51 @@
 local on_attach = require("plugins.configs.lspconfig").on_attach
 local capabilities = require("plugins.configs.lspconfig").capabilities
 
-local lspconfig = require("lspconfig")
+local lspconfig = require "lspconfig"
 local util = require "lspconfig/util"
 
-lspconfig.rust_analyzer.setup({
+lspconfig.rust_analyzer.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "rust" },
-  root_dir = util.root_pattern("Cargo.toml"),
+  root_dir = util.root_pattern "Cargo.toml",
   settings = {
-    ['rust-analyzer'] = {
+    ["rust-analyzer"] = {
       cargo = {
-        allFeatures = true
+        allFeatures = true,
       },
     },
   },
-})
+}
 
-lspconfig.tsserver.setup({
+lspconfig.tsserver.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-})
+}
 
-lspconfig.yamlls.setup({
+lspconfig.yamlls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "yaml" }
-})
+  filetypes = { "yaml" },
+}
 
-lspconfig.lua_ls.setup({
+lspconfig.lua_ls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "lua" }
-})
+  filetypes = { "lua" },
+}
 
-lspconfig.dartls.setup({
+lspconfig.dartls.setup {
   color = {
     enabled = true,
     background = true,
     virtual_text = false,
   },
-    settings = {
+  settings = {
     showTodos = true,
     renameFilesWithClasses = "prompt",
   },
   on_attach = on_attach,
   capabilities = capabilities,
-  filetypes = { "dart" }
-})
+  filetypes = { "dart" },
+}
