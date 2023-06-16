@@ -15,11 +15,18 @@ local plugins = {
   },
   {
     "neovim/nvim-lspconfig",
+    dependencies = {
+      "jose-elias-alvarez/null-ls.nvim",
+      config = function()
+        require "custom.configs.null-ls"
+      end,
+    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
     end,
   },
+
   -- rust --
   {
     "rust-lang/rust.vim",
@@ -76,6 +83,27 @@ local plugins = {
       }
       table.insert(M.sources, {name = "crates"})
       return M
+    end,
+  },
+
+  -- flutter
+  {
+    "nvim-lua/plenary.nvim"
+  },
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+  },
+  {
+    "akinsho/flutter-tools.nvim",
+    lazy = false,
+    dependencies = { "nvim-lua/plenary.nvim", "stevearc/dressing.nvim" },
+    opts = function ()
+      return require "custom.configs.flutter-tools"
+    end,
+    config = function(_, opts)
+      require("flutter-tools").setup(opts)
+      require("telescope").load_extension "flutter"
     end,
   },
 }

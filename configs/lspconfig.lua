@@ -34,3 +34,18 @@ lspconfig.lua_ls.setup({
   capabilities = capabilities,
   filetypes = { "lua" }
 })
+
+lspconfig.dartls.setup({
+  color = {
+    enabled = true,
+    background = true,
+    virtual_text = false,
+  },
+    settings = {
+    showTodos = true,
+    renameFilesWithClasses = "prompt",
+  },
+  on_attach = on_attach,
+  capabilities = capabilities,
+  filetypes = { "dart" }
+})
