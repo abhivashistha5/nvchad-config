@@ -29,7 +29,21 @@ local plugins = {
       require "custom.configs.lspconfig"
     end,
   },
-
+  {
+    "mfussenegger/nvim-dap",
+    init = function()
+      require("core.utils").load_mappings "dap"
+      require "custom.configs.dap-configs"
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    init = function()
+      require("dapui").setup()
+      require("core.utils").load_mappings "nvim_dap_ui"
+    end,
+  },
   -- rust --
   {
     "rust-lang/rust.vim",
@@ -47,13 +61,6 @@ local plugins = {
     end,
     config = function(_, opts)
       require("rust-tools").setup(opts)
-    end,
-  },
-  {
-    "mfussenegger/nvim-dap",
-    init = function()
-      require("core.utils").load_mappings "dap"
-      require "custom.configs.dap-configs"
     end,
   },
   {
