@@ -10,6 +10,9 @@ local plugins = {
         "typescript-language-server",
         "json-lsp",
         "yaml-language-server",
+        "stylua",
+        "prettier",
+        "shellcheck",
       },
     },
   },
@@ -31,38 +34,39 @@ local plugins = {
   {
     "rust-lang/rust.vim",
     ft = "rust",
-    init = function ()
+    init = function()
       vim.g.rustfmt_autosave = 1
-    end
+    end,
   },
   {
     "simrat39/rust-tools.nvim",
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
-    opts = function ()
+    opts = function()
       return require "custom.configs.rust-tools"
     end,
     config = function(_, opts)
-      require('rust-tools').setup(opts)
-    end
+      require("rust-tools").setup(opts)
+    end,
   },
   {
     "mfussenegger/nvim-dap",
     init = function()
-      require("core.utils").load_mappings("dap")
-    end
+      require("core.utils").load_mappings "dap"
+      require "custom.configs.dap-configs"
+    end,
   },
   {
-    'saecki/crates.nvim',
-    ft = {"rust", "toml"},
+    "saecki/crates.nvim",
+    ft = { "rust", "toml" },
     config = function(_, opts)
-      local crates  = require('crates')
+      local crates = require "crates"
       crates.setup(opts)
-      require('cmp').setup.buffer({
-        sources = { { name = "crates" }}
-      })
+      require("cmp").setup.buffer {
+        sources = { { name = "crates" } },
+      }
       crates.show()
-      require("core.utils").load_mappings("crates")
+      require("core.utils").load_mappings "crates"
     end,
   },
   {
@@ -70,7 +74,7 @@ local plugins = {
     lazy = false,
     config = function(_, opts)
       require("nvim-dap-virtual-text").setup()
-    end
+    end,
   },
   {
     "hrsh7th/nvim-cmp",
@@ -81,14 +85,14 @@ local plugins = {
         behavior = cmp.ConfirmBehavior.Insert,
         select = false,
       }
-      table.insert(M.sources, {name = "crates"})
+      table.insert(M.sources, { name = "crates" })
       return M
     end,
   },
 
   -- flutter
   {
-    "nvim-lua/plenary.nvim"
+    "nvim-lua/plenary.nvim",
   },
   {
     "stevearc/dressing.nvim",
@@ -98,7 +102,7 @@ local plugins = {
     "akinsho/flutter-tools.nvim",
     lazy = false,
     dependencies = { "nvim-lua/plenary.nvim", "stevearc/dressing.nvim" },
-    opts = function ()
+    opts = function()
       return require "custom.configs.flutter-tools"
     end,
     config = function(_, opts)
