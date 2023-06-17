@@ -44,6 +44,15 @@ local plugins = {
       require("core.utils").load_mappings "nvim_dap_ui"
     end,
   },
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    config = true,
+    init = function()
+      require("toggleterm").setup()
+      require("core.utils").load_mappings "toggleterm"
+    end,
+  },
   -- rust --
   {
     "rust-lang/rust.vim",

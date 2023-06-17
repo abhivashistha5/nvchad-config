@@ -1,7 +1,24 @@
 local M = {}
 
-local sections = {
-  d = { "" .. "Debugger" },
+M.toggleterm = {
+  plugin = true,
+  n = {
+    ["<leader>gg"] = {
+      function()
+        local Terminal = require("toggleterm.terminal").Terminal
+        local lazygit = Terminal:new {
+          cmd = "lazygit",
+          hidden = true,
+          direction = "float",
+          float_opts = {
+            border = "double",
+          },
+        }
+        lazygit:toggle()
+      end,
+      "lazygit",
+    },
+  },
 }
 
 M.dap = {
