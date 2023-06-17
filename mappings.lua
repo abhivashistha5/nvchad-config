@@ -18,6 +18,7 @@ M.toggleterm = {
       end,
       "lazygit",
     },
+    ["<leader>tf"] = { "<cmd> ToggleTerm direction=float <CR>", "Toggle floating terminal" },
   },
 }
 
