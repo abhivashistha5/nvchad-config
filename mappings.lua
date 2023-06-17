@@ -173,7 +173,7 @@ M.nvim_dap_ui = {
       end,
       "Evaluate Input",
     },
-    ["<leader>dut"] = {
+    ["<leader>dui"] = {
       function()
         require("dapui").toggle()
       end,
