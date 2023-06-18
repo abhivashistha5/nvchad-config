@@ -1,5 +1,4 @@
 local dap = require "dap"
-local lldb_path = os.execute "which lldb-vscode"
 
 dap.adapters.dart = {
   type = "executable",
@@ -58,7 +57,7 @@ dap.configurations.typescript = {
 -- c/c++/rust
 dap.adapters.lldb = {
   type = "executable",
-  command = lldb_path,
+  command = "/usr/bin/lldb-vscode",
   name = "lldb",
 }
 
