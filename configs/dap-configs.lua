@@ -1,4 +1,5 @@
 local dap = require "dap"
+local lldb_path = os.execute "which lldb-vscode"
 
 dap.adapters.dart = {
   type = "executable",
@@ -17,11 +18,47 @@ dap.configurations.dart = {
     cwd = "${workspaceFolder}",
   },
 }
+-- typescript
+dap.adapters["pwa-node"] = {
+  type = "server",
+  host = "localhost",
+  port = "${port}",
+  executable = {
+    command = "node",
+    -- 💀 Make sure to update this path to point to your installation
+    args = { os.getenv "HOME" .. "/.debugger/js-debug/src/dapDebugServer.js", "${port}" },
+  },
+}
+-- dap.adapters["pwa-node"] = {
+--   type = "server",
+--   host = "127.0.0.1",
+--   port = "${port}",
+--   executable = {
+--     command = "js-debug-adapter",
+--     args = { "${port}" },
+--   },
+-- }
+dap.configurations.typescript = {
+  {
+    type = "pwa-node",
+    request = "launch",
+    name = "Launch file",
+    program = "${file}",
+    cwd = "${workspaceFolder}",
+  },
+  {
+    type = "pwa-node",
+    request = "attach",
+    name = "Attach",
+    processId = require("dap.utils").pick_process,
+    cwd = "${workspaceFolder}",
+  },
+}
 
 -- c/c++/rust
 dap.adapters.lldb = {
   type = "executable",
-  command = "/usr/bin/lldb-vscode",
+  command = lldb_path,
   name = "lldb",
 }
 
