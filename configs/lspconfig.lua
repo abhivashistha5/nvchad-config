@@ -27,6 +27,13 @@ lspconfig.yamlls.setup {
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "yaml" },
+  settings = {
+    yaml = {
+      customTags = {
+        "!reference sequence", -- for gitlab-ci
+      },
+    },
+  },
 }
 
 lspconfig.lua_ls.setup {

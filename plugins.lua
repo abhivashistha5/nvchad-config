@@ -53,6 +53,7 @@ local plugins = {
       require("core.utils").load_mappings "toggleterm"
     end,
   },
+
   -- rust --
   {
     "rust-lang/rust.vim",
