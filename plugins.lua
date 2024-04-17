@@ -18,12 +18,6 @@ local plugins = {
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "nvimtools/none-ls.nvim",
-      config = function()
-        require "custom.configs.null-ls"
-      end,
-    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
@@ -53,8 +47,18 @@ local plugins = {
       require("core.utils").load_mappings "toggleterm"
     end,
   },
+  { "nvim-neotest/nvim-nio" },
 
   -- rust --
+  {
+    "mrcjkb/rustaceanvim",
+    version = "^4",
+    ft = { "rust" },
+    dependencies = "neovim/nvim-lspconfig",
+    config = function()
+      require "custom.configs.rustaceanvim"
+    end
+  },
   {
     "rust-lang/rust.vim",
     ft = "rust",
@@ -63,19 +67,8 @@ local plugins = {
     end,
   },
   {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    dependencies = "neovim/nvim-lspconfig",
-    opts = function()
-      return require "custom.configs.rust-tools"
-    end,
-    config = function(_, opts)
-      require("rust-tools").setup(opts)
-    end,
-  },
-  {
     "saecki/crates.nvim",
-    ft = { "rust", "toml" },
+    ft = { "toml" },
     config = function(_, opts)
       local crates = require "crates"
       crates.setup(opts)
@@ -139,11 +132,38 @@ local plugins = {
         -- node_path = "node", -- Path of node executable. Defaults to $NODE_PATH, and then "node"
         debugger_path = os.getenv "HOME" .. "/.debugger/vscode-js-debug", -- Path to vscode-js-debug installation.
         -- debugger_cmd = { "js-debug-adapter" }, -- Command to use to launch the debug server. Takes precedence over `node_path` and `debugger_path`.
-        adapters = { "pwa-node", "pwa-chrome" }, -- which adapters to register in nvim-dap
+        adapters = { "pwa-node", "pwa-chrome" },                          -- which adapters to register in nvim-dap
         -- log_file_path = "(stdpath cache)/dap_vscode_js.log" -- Path for file logging
         -- log_file_level = false -- Logging level for output to file. Set to false to disable file logging.
         -- log_console_level = vim.log.levels.ERROR -- Logging level for output to console. Set to false to disable console output.
       }
+    end,
+  },
+
+
+  -- telescope
+  {
+    "nvim-telescope/telescope.nvim",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    cmd = "Telescope",
+    init = function()
+      require("core.utils").load_mappings "telescope"
+    end,
+    opts = function()
+      local options = require "plugins.configs.telescope"
+      local custom_options = require "custom.configs.telescope"
+      options.defaults.file_ignore_patterns = custom_options.defaults.file_ignore_patterns
+      return options
+    end,
+    config = function(_, opts)
+      dofile(vim.g.base46_cache .. "telescope")
+      local telescope = require "telescope"
+      telescope.setup(opts)
+
+      -- load extensions
+      for _, ext in ipairs(opts.extensions_list) do
+        telescope.load_extension(ext)
+      end
     end,
   },
 }
