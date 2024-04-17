@@ -18,12 +18,6 @@ local plugins = {
   },
   {
     "neovim/nvim-lspconfig",
-    dependencies = {
-      "nvimtools/none-ls.nvim",
-      config = function()
-        -- require "custom.configs.null-ls"
-      end,
-    },
     config = function()
       require "plugins.configs.lspconfig"
       require "custom.configs.lspconfig"
@@ -57,6 +51,15 @@ local plugins = {
 
   -- rust --
   {
+    "mrcjkb/rustaceanvim",
+    version = "^4",
+    ft = { "rust" },
+    dependencies = "neovim/nvim-lspconfig",
+    config = function()
+      require "custom.configs.rustaceanvim"
+    end
+  },
+  {
     "rust-lang/rust.vim",
     ft = "rust",
     init = function()
@@ -64,19 +67,8 @@ local plugins = {
     end,
   },
   {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    dependencies = "neovim/nvim-lspconfig",
-    opts = function()
-      return require "custom.configs.rust-tools"
-    end,
-    config = function(_, opts)
-      require("rust-tools").setup(opts)
-    end,
-  },
-  {
     "saecki/crates.nvim",
-    ft = { "rust", "toml" },
+    ft = { "toml" },
     config = function(_, opts)
       local crates = require "crates"
       crates.setup(opts)
