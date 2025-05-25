@@ -40,31 +40,31 @@ return {
       },
     },
   },
-  -- {
-  --   "mfussenegger/nvim-dap",
-  --   init = function()
-  --     require("core.utils").load_mappings "dap"
-  --     require "custom.configs.dap-configs"
-  --   end,
-  -- },
-  -- {
-  --   "rcarriga/nvim-dap-ui",
-  --   dependencies = { "mfussenegger/nvim-dap" },
-  --   init = function()
-  --     require("dapui").setup()
-  --     require("core.utils").load_mappings "nvim_dap_ui"
-  --   end,
-  -- },
+  {
+    "mfussenegger/nvim-dap",
+    init = function()
+      require "configs.dap-configs"
+      require "mappings.dap-mapping"
+    end,
+  },
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap" },
+    init = function()
+      require("dapui").setup()
+      require "mappings.dap-ui-mapping"
+    end,
+  },
+  { "nvim-neotest/nvim-nio" },
   {
     "akinsho/toggleterm.nvim",
     version = "*",
     config = true,
     init = function()
       require("toggleterm").setup()
-      require "configs.toggleterm"
+      require "mappings.toggleterm-mapping"
     end,
   },
-  -- { "nvim-neotest/nvim-nio" },
 
   -- -- rust --
   -- {
